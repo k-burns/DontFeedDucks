@@ -1,5 +1,6 @@
 import 'phaser'
 
+
 export default class MainScene extends Phaser.Scene {
   constructor() {
     super('MainScene');
@@ -7,5 +8,8 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
     // << LOAD BACKGROUND AND FOREGROUND SCENES IN PARALLEL HERE >>
+    this.scene.launch('BgScene')
+    this.scene.launch('FgScene')
+    this.scene.launch('HandScene')
   }
 }

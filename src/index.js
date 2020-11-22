@@ -15,6 +15,10 @@ But this hasn't happened yet!
 // Bring in all the scenes
 import 'phaser';
 import config from './config/config'
+import BgScene from './scenes/BgScene'
+import FgScene from './scenes/FgScene'
+import HandScene from './scenes/HandScene';
+import MainScene from './scenes/MainScene'
 
 class Game extends Phaser.Game {
   constructor() {
@@ -26,6 +30,12 @@ class Game extends Phaser.Game {
 
     // Start the game with the mainscene
     // << START GAME WITH MAIN SCENE HERE >>
+    this.scene.add('BgScene', BgScene)
+    this.scene.add('FgScene', FgScene)
+    this.scene.add('MainScene', MainScene)
+    this.scene.add('HandScene', HandScene)
+
+    this.scene.start('MainScene')
   }
 }
 // Create new instance of game
