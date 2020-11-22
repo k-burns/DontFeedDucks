@@ -17,7 +17,6 @@ import 'phaser';
 import config from './config/config'
 import BgScene from './scenes/BgScene'
 import FgScene from './scenes/FgScene'
-import HandScene from './scenes/HandScene';
 import MainScene from './scenes/MainScene'
 
 class Game extends Phaser.Game {
@@ -33,7 +32,6 @@ class Game extends Phaser.Game {
     this.scene.add('BgScene', BgScene)
     this.scene.add('FgScene', FgScene)
     this.scene.add('MainScene', MainScene)
-    this.scene.add('HandScene', HandScene)
 
     this.scene.start('MainScene')
   }

@@ -15,8 +15,8 @@ export default class Snack extends Phaser.Physics.Arcade.Sprite {
   }
 
   updateMovement(cursors){
-    if(cursors.right.isDown){
-      this.setVelocityY(800)
+    if(cursors.up.isDown){
+      this.setVelocityY(-400)
     }else{
       this.play('onHand', true)
     }

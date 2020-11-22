@@ -1,6 +1,13 @@
 import Hand from "../entity/Hand";
 import Ground from '../entity/Ground'
 import Duck from "../entity/Duck";
+import Snack from '../entity/Snack';
+import snacks from '../snacks/snack.js'
+
+const randomIndex = Math.floor(Math.random() * snacks.length)
+const snack = snacks[randomIndex]
+const snackName = snack.name
+const snackImg = snack.img
 
 
 export default class FgScene extends Phaser.Scene {
@@ -11,7 +18,7 @@ export default class FgScene extends Phaser.Scene {
   preload() {
     // Preload Sprites
     // << LOAD SPRITES HERE >>
-    this.load.image('ground', 'assets/sprites/pondBase.png')
+    this.load.image('ground', 'assets/sprites/pondBase1.png')
     this.load.spritesheet('duck', 'assets/spriteSheets/duck.png', {
       frameWidth: 64,
       frameHeight: 64
@@ -19,6 +26,14 @@ export default class FgScene extends Phaser.Scene {
     this.load.spritesheet('hand', 'assets/spriteSheets/hand.png',{
       frameWidth: 64,
       frameHeight: 64
+    })
+    this.load.spritesheet('snack', snackImg, {
+      frameWidth: 64,
+      frameHeight:64
+    })
+    this.load.spritesheet('angryDuck', 'assets/spriteSheets/angryDuck.png', {
+      frameWidth: 64,
+      frameHeight:64
     })
     // Preload Sounds
     // << LOAD SOUNDS HERE >>
@@ -29,11 +44,13 @@ export default class FgScene extends Phaser.Scene {
     // Create game entities
     // << CREATE GAME ENTITIES HERE >>
     this.createGroups()
-    this.hand = new Hand(this, 300, 559, 'hand').setScale()
+    this.hand = new Hand(this, 300, 530, 'hand').setScale(2)
     this.duck = new Duck(this, 400, 400, 'duck').setScale(2)
     // this.ground = new Ground(this, 400, 540, 'ground').setScale(2)
-
+    this.snack = new Snack(this, 300, 538, 'snack').setScale(2)
     this.cursors = this.input.keyboard.createCursorKeys()
+
+    this.add.text(200, 580, snackName, { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif,', color: 'black', fontSize: '3000px', backgroundColor: 'white' })
     this.createAnimations()
 
 
@@ -44,6 +61,7 @@ export default class FgScene extends Phaser.Scene {
     // << CREATE COLLISIONS HERE >>
     this.physics.add.collider(this.duck, this.groundGroup)
     this.physics.add.collider(this.hand, this.groundGroup)
+    this.physics.add.collider(this.snack, this.groundGroup)
 
   }
 
@@ -52,8 +70,15 @@ export default class FgScene extends Phaser.Scene {
     // << DO UPDATE LOGIC HERE >>
     this.hand.update(this.cursors)
     this.duck.update(this.cursors)
+    this.snack.update(this.cursors)
     if(this.cursors.up.isDown || this.cursors.down.isDown){
-      this.add.text(100, 580, 'hello', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif,', color: 'black', fontSize: '3000px', backgroundColor: 'white' })
+      this.add.text(500, 560, snack.facts, { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif,', color: 'black', fontSize: '3000px', backgroundColor: 'white', wordWrap: { width: 200 } })
+    }
+    if(this.snack.y<=450){
+      this.snack.disableBody(true,true)
+    }
+    if(this.cursors.down.isDown){
+      this.snack.disableBody(true, true)
     }
   }
 
@@ -97,6 +122,15 @@ export default class FgScene extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers
       ('hand', { start: 11, end: 14}),
       frameRate:3,
+    })
+    this.anims.create({
+          key: 'onHand',
+          frames: this.anims.generateFrameNumbers('snack', { start: 1, end: 3 }),
+          frameRate: 3
+    });
+    this.anims.create({
+      key: 'madDuck',
+      frames: this.anims.generateFrameNumbers('angryDuck', {start: 1, end: 3})
     })
     ;
   }
