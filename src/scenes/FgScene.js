@@ -18,6 +18,15 @@ export default class FgScene extends Phaser.Scene {
   preload() {
     // Preload Sprites
     // << LOAD SPRITES HERE >>
+    this.randomIndex = Math.floor(Math.random() * snacks.length)
+    this.snackIndex = snacks[this.randomIndex]
+    this.snackName = this.snackIndex.name
+    this.snackImg = this.snackIndex.img
+    this.textures.remove('snack')
+    this.anims.remove('onHand')
+    console.log(this.textures)
+    this.load.image('background', 'assets/backgrounds/background.png')
+    this.load.image('pond', 'assets/backgrounds/pond.png')
     this.load.image('ground', 'assets/sprites/pondBase1.png')
     this.load.spritesheet('duck', 'assets/spriteSheets/duck.png', {
       frameWidth: 64,
@@ -27,7 +36,7 @@ export default class FgScene extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 64
     })
-    this.load.spritesheet('snack', snackImg, {
+    this.load.spritesheet('snack', this.snackImg, {
       frameWidth: 64,
       frameHeight:64
     })
@@ -43,6 +52,8 @@ export default class FgScene extends Phaser.Scene {
   create() {
     // Create game entities
     // << CREATE GAME ENTITIES HERE >>
+    this.add.image(0, 0, 'background').setOrigin(0).setScale(13)
+    this.add.image(400, 250, 'pond').setScale(13)
     this.createGroups()
     this.hand = new Hand(this, 300, 530, 'hand').setScale(2)
     this.duck = new Duck(this, 400, 400, 'duck').setScale(2)
@@ -50,8 +61,10 @@ export default class FgScene extends Phaser.Scene {
     this.snack = new Snack(this, 300, 538, 'snack').setScale(2)
     this.cursors = this.input.keyboard.createCursorKeys()
 
-    this.add.text(200, 580, snackName, { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif,', color: 'black', fontSize: '3000px', backgroundColor: 'white' })
+    this.add.text(200, 580, this.snackName, { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif,', color: 'black', fontSize: '3000px', backgroundColor: 'white' })
     this.createAnimations()
+
+
 
 
     // Create sounds
@@ -72,7 +85,7 @@ export default class FgScene extends Phaser.Scene {
     this.duck.update(this.cursors)
     this.snack.update(this.cursors)
     if(this.cursors.up.isDown || this.cursors.down.isDown){
-      this.add.text(500, 560, snack.facts, { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif,', color: 'black', fontSize: '3000px', backgroundColor: 'white', wordWrap: { width: 200 } })
+      this.add.text(500, 560, this.snackIndex.facts, { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif,', color: 'black', fontSize: '3000px', backgroundColor: 'white', wordWrap: { width: 200 } })
     }
     if(this.snack.y<=450){
       this.snack.disableBody(true,true)
@@ -80,8 +93,16 @@ export default class FgScene extends Phaser.Scene {
     if(this.cursors.down.isDown){
       this.snack.disableBody(true, true)
     }
+
+    this.resetGame()
   }
 
+  resetGame(){
+    if(this.cursors.space.isDown){
+      this.snack.destroy()
+      this.scene.restart()
+    }
+  }
 
   createGroups() {
     this.groundGroup = this.physics.add.staticGroup({ classType: Ground });
