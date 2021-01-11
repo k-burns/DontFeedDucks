@@ -44,6 +44,10 @@ export default class FgScene extends Phaser.Scene {
       frameWidth: 64,
       frameHeight:64
     })
+    this.load.spritesheet('happyDuck', 'assets/spriteSheets/happyDuck.png', {
+      frameWidth: 64,
+      frameHeight:64
+    })
     // Preload Sounds
     // << LOAD SOUNDS HERE >>
     // this.load.audio('jump', 'assets/audio/jump.wav')
@@ -82,8 +86,24 @@ export default class FgScene extends Phaser.Scene {
   update(time, delta) {
     // << DO UPDATE LOGIC HERE >>
     this.hand.update(this.cursors)
-    this.duck.update(this.cursors)
     this.snack.update(this.cursors)
+    if(this.cursors.up.isDown){
+      if(this.snackIndex.good === false){
+        // this.anims.pauseAll()
+        this.duck.play('madDuck', true)
+        console.log(this.duck.anims)
+      }else{
+        this.duck.play('eat', true)
+      }
+    }else if(this.cursors.down.isDown){
+      if(this.snackIndex.good === false){
+        this.duck.play('gladDuck', true)
+      }else{
+        this.duck.play('madDuck', true)
+      }
+    }else{
+     this.duck.play('idleDuck', true)
+    }
     if(this.cursors.up.isDown || this.cursors.down.isDown){
       this.add.text(500, 560, this.snackIndex.facts, { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif,', color: 'black', fontSize: '3000px', backgroundColor: 'white', wordWrap: { width: 200 } })
     }
@@ -131,12 +151,13 @@ export default class FgScene extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers
       ('duck', { start: 1, end: 3}),
       frameRate: 10,
+      repeat: 2
     })
     this.anims.create({
       key: 'idleDuck',
       frames: this.anims.generateFrameNumbers
       ('duck', { start: 4, end: 6}),
-      frameRate: 3,
+      frameRate: 3
     })
     this.anims.create({
       key: 'idleHand',
@@ -151,15 +172,16 @@ export default class FgScene extends Phaser.Scene {
     });
     this.anims.create({
       key: 'madDuck',
-      frames: this.anims.generateFrameNumbers('angryDuck', {start: 1, end: 3})
+      frames: this.anims.generateFrameNumbers('angryDuck', {start: 1, end: 3}),
+      frameRate: 3,
+      repeat: -1
+    })
+    this.anims.create({
+      key: 'gladDuck',
+      frames: this.anims.generateFrameNumbers('happyDuck', {start: 1, end: 3}),
+      frameRate: 3,
+      repeat: -1
     })
     ;
   }
-
-  // collectGun(player, gun) {
-  //   gun.disableBody(true, true)
-  //   this.player.armed = true
-  // }
-
-
 }

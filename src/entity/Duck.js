@@ -9,16 +9,4 @@ export default class Duck extends Phaser.Physics.Arcade.Sprite {
     this.scene.add.existing(this)
     this.scene.physics.world.enable(this)
   }
-  update(cursors) {
-   this.updateMovement(cursors)
-  }
-
-  updateMovement(cursors){
-    if(cursors.up.isDown){
-      this.play('eat', true)
-    }else{
-      this.play('idleDuck', true)
-    }
-  }
 }
-
