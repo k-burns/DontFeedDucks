@@ -8,7 +8,7 @@ export default class StartScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('background_image', 'assets/backgrounds/spriteSheets/startScene_background.png')
+        this.load.image('background_image', 'assets/backgrounds/pond.png')
         buttonEnter = this.input.keyboard.addKey('enter')
     }
 

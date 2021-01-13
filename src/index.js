@@ -14,6 +14,7 @@ But this hasn't happened yet!
 
 // Bring in all the scenes
 import 'phaser';
+import StartScene from './scenes/StartScene'
 import config from './config/config'
 import BgScene from './scenes/BgScene'
 import FgScene from './scenes/FgScene'
@@ -32,8 +33,8 @@ class Game extends Phaser.Game {
     this.scene.add('BgScene', BgScene)
     this.scene.add('FgScene', FgScene)
     this.scene.add('MainScene', MainScene)
-
-    this.scene.start('MainScene')
+    this.scene.add('StartScene', StartScene)
+    this.scene.start('StartScene')
   }
 }
 // Create new instance of game
