@@ -1,5 +1,5 @@
 {
-  "name": "PhaserWorkshop",
+  "name": "dontfeedducksbread",
   "version": "1.0.0",
   "description": "A workshop for getting started with Phaser",
   "main": "src/index.js",
@@ -7,7 +7,7 @@
     "build-client": "webpack",
     "build-client-watch": "webpack -w",
     "start-dev": "NODE_ENV='development' npm run build-client-watch & NODE_ENV='development' npm run start-server",
-    "start-server": "nodemon server -e html,js,scss --ignore public --ignore client"
+    "start": "nodemon server -e html,js,scss --ignore public --ignore client"
   },
   "dependencies": {
     "axios": "^0.21.0",
