@@ -4,10 +4,7 @@
   "description": "A workshop for getting started with Phaser",
   "main": "src/index.js",
   "scripts": {
-    "build-client": "webpack",
-    "build-client-watch": "webpack -w",
-    "start-dev": "NODE_ENV='development' npm run build-client-watch & NODE_ENV='development' npm run start-server",
-    "start": "nodemon server -e html,js,scss --ignore public --ignore client"
+    "start-dev": "webpack-dev-server"
   },
   "dependencies": {
     "axios": "^0.21.0",
@@ -32,8 +29,12 @@
     "socket.io": "^3.0.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.13",
+    "@babel/preset-env": "^7.12.13",
+    "babel-loader": "^8.2.2",
     "raw-loader": "^0.5.1",
     "webpack": "^3.4.1",
+    "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^2.11.0"
   }
 }

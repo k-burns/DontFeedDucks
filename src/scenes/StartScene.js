@@ -8,13 +8,12 @@ export default class StartScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('background_image', 'assets/backgrounds/pond.png')
+        this.load.image('background', 'assets/backgrounds/background.png')
         buttonEnter = this.input.keyboard.addKey('enter')
     }
 
     create() {
-        let background = this.add.sprite(0, 0, 'background_image')
-        background.setOrigin(0, 0)
+        this.add.image(0, 0, 'background').setOrigin(0).setScale(13)
         let title_text = this.add.text(90, 110, `Don't Feed Ducks Bread!`, { fontFamily: 'Georgia, serif', fontSize: '40px', color: '#000000', stroke: '#fff', strokeThickness: 2 })
 
 
@@ -25,54 +24,11 @@ export default class StartScene extends Phaser.Scene {
             stroke: '#fff',
             strokeThickness: 2
         }).setInteractive({useHandCursor: true}).on('pointerdown', () =>{
-            this.scene.start('MainScene');
+            this.scene.start('Instructions');
         })
-        TweenHelper.flashElement(this, start);
     }
 
     update() {
 
-    }
-}
-
-export class TweenHelper {
-    static flashElement(scene, element, repeat = true, easing = 'Linear', overallDuration = 1500, visiblePauseDuration = 500) {
-        if (scene && element) {
-            let flashDuration = overallDuration - visiblePauseDuration / 2;
-
-            scene.tweens.timeline({
-                tweens: [
-                    {
-                        targets: element,
-                        duration: 0,
-                        alpha: 0.2,
-                        ease: easing
-                    },
-                    {
-                        targets: element,
-                        duration: flashDuration,
-                        alpha: 1,
-                        ease: easing
-                    },
-                    {
-                        targets: element,
-                        duration: visiblePauseDuration,
-                        alpha: 1,
-                        ease: easing
-                    },
-                    {
-                        targets: element,
-                        duration: flashDuration,
-                        alpha: 0.2,
-                        ease: easing,
-                        onComplete: () => {
-                            if (repeat === true) {
-                                this.flashElement(scene, element);
-                            }
-                        }
-                    }
-                ]
-            });
-        }
     }
 }
