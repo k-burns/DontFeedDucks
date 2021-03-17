@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node server.js",
-    "start-dev": "webpack-dev-server"
+    "start-dev": "webpack-dev-server",
+    "deploy": "script/deploy"
   },
   "dependencies": {
     "axios": "^0.21.0",
