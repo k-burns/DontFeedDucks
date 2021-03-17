@@ -1,9 +1,9 @@
 import Hand from "../entity/Hand";
 import Ground from '../entity/Ground'
 import Duck from "../entity/Duck";
-import Snack from '../entity/Snack';
+// import Snack from '../entity/Snack';
 import snacks from '../snacks/snack.js'
-import {fetchSnacks} from '../store/snacks'
+// import {fetchSnacks} from '../store/snacks'
 
 const randomIndex = Math.floor(Math.random() * snacks.length)
 const snack = snacks[randomIndex]
@@ -15,7 +15,6 @@ export default class FgScene extends Phaser.Scene {
   }
 
   preload() {
-    fetchSnacks()
     this.randomIndex = Math.floor(Math.random() * snacks.length)
     this.snackIndex = snacks[this.randomIndex]
     this.snackName = this.snackIndex.name
