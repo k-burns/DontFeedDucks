@@ -4,8 +4,8 @@ const morgan = require('morgan')
 const compression = require('compression')
 const session = require('express-session')
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
-const db = require('./DontFeedDucks/server/db')
-const sessionStore = new SequelizeStore({db})
+// const db = require('./server/db')
+// const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
@@ -26,7 +26,7 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-  app.use('/api', require('./DontFeedDucks/server/api'))
+  // app.use('/api', require('./server/api'))
 
   // app.use(express.static(path.join(__dirname, '..', 'public')))
 
@@ -62,11 +62,11 @@ const startListening = () => {
   require('./socket')(io)
 }
 
-const syncDb = () => db.sync()
+// const syncDb = () => db.sync()
 
 async function bootApp() {
   await sessionStore.sync()
-  await syncDb()
+  // await syncDb()
   await createApp()
   await startListening()
 }
