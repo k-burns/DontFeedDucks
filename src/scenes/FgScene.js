@@ -1,7 +1,7 @@
 import Hand from "../entity/Hand";
 import Ground from '../entity/Ground'
 import Duck from "../entity/Duck";
-// import Snack from '../entity/Snack';
+import Snack from '../entity/Snack';
 import snacks from '../snacks/snack.js'
 // import {fetchSnacks} from '../store/snacks'
 
